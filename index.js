@@ -35,7 +35,8 @@ app.use(function(req, res, next) {
     res.status(404).sendfile('serve_html/views/notfound.html');
 
 });
-const port = 3000;
+
+const port = 80;
 const server = app.listen(port, () => console.log('Server is up and running at port: ' + port));
 
 

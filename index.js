@@ -36,7 +36,7 @@ app.use(function(req, res, next) {
 
 });
 
-const port = 80;
+const port = 3000;
 const server = app.listen(port, () => console.log('Server is up and running at port: ' + port));
 
 

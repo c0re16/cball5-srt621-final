@@ -10,7 +10,7 @@
 <script type="text/javascript">
 
 	let request = new XMLHttpRequest();
-	request.open('GET','http://localhost:3000/api/book/<%=id%>');
+	request.open('GET','/api/book/<%=id%>');
 	request.send()
 	request.onload = () => {
 		console.log(request);

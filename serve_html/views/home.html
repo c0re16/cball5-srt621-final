@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home</title>
+</head>
+<body>
+<h1>Home page</h1>
+<div id='ulist'>
+	<ul id=booklist></ul>
+</div>
+<script type="ejs.min.js"></script>
+<script type="text/javascript">
+
+	let request = new XMLHttpRequest();
+	request.open('GET','http://localhost:3000/api/books');
+	request.send()
+	request.onload = () => {
+		// console.log(request);
+
+		if (request.status == 200) {
+			console.log(JSON.parse(request.response));
+			for (let i in JSON.parse(request.response)) {
+				console.log(JSON.parse(request.response)[i]['amazon']);
+				let list = document.getElementById('booklist');
+				let data = JSON.parse(request.response);
+
+
+				a = document.createElement('a');
+				a.setAttribute('href','/books/'+JSON.parse(request.response)[i]['_id']);
+				let li = document.createElement("li");
+				li.innerText = JSON.parse(request.response)[i]['bookname'];
+				a.appendChild(li);
+				list.appendChild(a)
+
+
+			}
+
+
+		}
+	}
+
+</script>
+
+<link rel="stylesheet" type="text/css" href="home.css">
+	
+
+
+</body>
+<div id='navbar'>
+	<a href="/" class='active'>Home</a>
+	<a href="/AddNewBook">Add A Book</a>
+	<a href="/DeleteABook">Delete A Book</a>
+</div>
+
+
+</html>

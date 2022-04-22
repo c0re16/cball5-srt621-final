@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Book <%=id%></title>
+</head>
+<body>
+<div id='titlepoint'></div>
+<div id=bookdetails></div>
+<script type="ejs.min.js"></script>
+<script type="text/javascript">
+
+	let request = new XMLHttpRequest();
+	request.open('GET','http://localhost:3000/api/books/<%=id%>');
+	request.send()
+	request.onload = () => {
+		console.log(request);
+
+		if (request.status == 200) {
+			// console.log(JSON.parse(request.response));
+			data = JSON.parse(request.response)[0];
+			title = document.createElement('h2');
+			title.setAttribute('id','title');
+			title.innerText = data['bookname'];
+			anchorpoint = document.getElementById('titlepoint');
+			anchorpoint.appendChild(title);
+			outerlist = document.createElement('ul');
+			author = document.createElement('li');
+			author.innerText = 'Author: '+data['author'];
+			amazonlink = document.createElement('a');
+			amazonlink.setAttribute('href',data['amazon']);
+			amazon = document.createElement('li');
+			amazon.innerText = 'Buy on amazon!';
+			amazonlink.appendChild(amazon);
+			outerlist.appendChild(author);
+			outerlist.appendChild(amazonlink);
+			titlepoint.appendChild(outerlist);
+
+
+
+
+		}
+	}
+
+</script>
+
+<link rel="stylesheet" type="text/css" href="../home.css">
+	
+<div id='navbar'>
+	<a href="/" class='active'>Home</a>
+	<a href="/AddNewBook">Add A Book</a>
+	<a href="/DeleteABook">Delete A Book</a>
+</div>
+
+</body>
+</html>

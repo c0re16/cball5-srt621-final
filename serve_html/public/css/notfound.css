@@ -1,0 +1,17 @@
+
+body	{
+	font-family: sans-serif;
+	text-align: center;
+}
+#big404 {
+	font-family: sans-serif;
+	font-size: 56px;
+
+}
+img {
+	padding-top: 100px;
+}
+a {
+	text-decoration: none;
+	text-decoration-color: red;
+}

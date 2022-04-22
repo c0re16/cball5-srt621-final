@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Delete A Book</title>
+</head>
+
+<body>
+<h1>Delete a book from the list</h1>
+<div id='titlepoint'></div>
+<div id=bookdetails></div>
+<script type="ejs.min.js"></script>
+<div id='ulist'>
+	<ul id=booklist></ul>
+</div>
+<script type="text/javascript">
+
+	let request = new XMLHttpRequest();
+	request.open('GET','http://localhost:3000/api/books');
+	request.send()
+	request.onload = () => {
+		// console.log(request);
+
+		if (request.status == 200) {
+			console.log(JSON.parse(request.response));
+			for (let i in JSON.parse(request.response)) {
+				console.log(JSON.parse(request.response)[i]['amazon']);
+				let list = document.getElementById('booklist');
+				// let data = JSON.parse(request.response);
+
+
+				a = document.createElement('a');
+				let thelink = 'http://localhost:3000/api/books/'+JSON.parse(request.response)[i]['_id'];
+				let li = document.createElement("li");
+				li.innerText = String.fromCharCode(0x274C)+JSON.parse(request.response)[i]['bookname'];
+				a.appendChild(li);
+				a.onclick = function(){
+					let xhr = new XMLHttpRequest();
+					xhr.open("DELETE",thelink);
+
+					xhr.onreadystatechange  = function() {
+						if (xhr.readyState ===4) {
+							console.log(xhr.status);
+							console.log(xhr.responseText);
+							window.location.reload(true);
+						}
+					}
+					xhr.send();
+				}
+				list.appendChild(a);
+
+
+			}
+
+
+		}
+	}
+
+</script>
+
+<link rel="stylesheet" type="text/css" href="../home.css">
+	
+
+
+</body>
+<div id='navbar'>
+	<a href="/" >Home</a>
+	<a href="/AddNewBook">Add A Book</a>
+	<a href="/DeleteABook" class='active'>Delete A Book</a>
+</div>
+
+</html>

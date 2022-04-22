@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add a Book</title>
+</head>
+<body>
+<div id='titlepoint'></div>
+<div id=bookdetails></div>
+<script type="ejs.min.js"></script>
+
+
+<form id='bookdata'>
+	<label for="author">Author</label>
+	<input type="text" id='author' name="author">
+	<br>
+	<label for="bookname">Book Title</label>
+	<input type="text" id='bookname' name="bookname">
+	<br>
+	<label for="amazon">Amazon Link</label>
+	<input type="text" id='amazon' name="amazon">
+	<input type="submit">
+</form>
+
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<script type="text/javascript">
+	const form = document.querySelector('#bookdata');
+	form.addEventListener('submit', (event) => {
+		event.preventDefault()
+		const xhr = new XMLHttpRequest();
+		xhr.open('POST','/api/books')
+    // TODO: submit post request here
+    	console.log('This should not show up in console without hitting submit');
+		data = JSON.stringify(Object.fromEntries( new FormData(document.querySelector('#bookdata')).entries()));
+		xhr.setRequestHeader('Content-Type','application/json');
+		xhr.send(data);
+		xhr.onload = () => {
+			console.log(xhr.responseText);
+			window.location.href= '/';
+		}
+		console.log(data);
+});
+
+
+
+</script>
+
+</body>
+
+<div id='navbar'>
+	<a href="/">Home</a>
+	<a href="/AddNewBook" class='active'>Add A Book</a>
+	<a href="/DeleteABook">Delete A Book</a>
+</div>
+
+
+</html>

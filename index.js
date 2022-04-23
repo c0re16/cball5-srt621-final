@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const BodyParser = require("body-parser");
 const uri = "mongodb+srv://cball5:4cNnNL3un3eqka@cluster0.qmhkn.mongodb.net/mywebsite?retryWrites=true&w=majority";
-
+const port = 3000;
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -9,9 +9,11 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.get("/home",  (req, res) => {
+  console.log(req.data);
+  res.render("home.html", );
+});
 
-app.get('/',function() {res.sendfile("views/index.html")})
-app.get('/home',function() {res.sendfile("views/index.html")})
 app.use(express.static('serve_html/views'));
 app.use(express.static('serve_html/public/images'));
 app.use(express.static('serve_html/public/css'));
@@ -35,5 +37,5 @@ app.use(function(req, res, next) {
 
 });
 
-const port = 3000;
-const server = app.listen(port, () => console.log('Server is up and running at port: ' + port));
+
+const server = app.listen(process.env.PORT || 5000, () => console.log('Server is up and running at port: ' + port));

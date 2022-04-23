@@ -10,6 +10,8 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.get('/',function() {res.sendfile("views/index.html")})
+app.get('/home',function() {res.sendfile("views/index.html")})
 app.use(express.static('serve_html/views'));
 app.use(express.static('serve_html/public/images'));
 app.use(express.static('serve_html/public/css'));
@@ -26,9 +28,6 @@ mongoose.connect(uri,
 console.log('Attempting to load routes.');
 
 
-
-
-
 app.use('/', require('./serve_html/routes'));
 app.use(function(req, res, next) {
 
@@ -38,9 +37,3 @@ app.use(function(req, res, next) {
 
 const port = 3000;
 const server = app.listen(port, () => console.log('Server is up and running at port: ' + port));
-
-
-// app.set("port",process.env.PORT || 3000);
-// app.listen(app.get("port"),()=> {
-// 	console.log('Server is up on port: '+port );
-// })

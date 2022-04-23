@@ -12,7 +12,9 @@
 <script type="text/javascript">
 
 	let request = new XMLHttpRequest();
-	request.open('GET','http://localhost:3000/api/books');
+
+	request.open('GET','/api/books');
+
 	request.send()
 	request.onload = () => {
 		// console.log(request);
@@ -26,7 +28,9 @@
 
 
 				a = document.createElement('a');
-				a.setAttribute('href','/books/'+JSON.parse(request.response)[i]['_id']);
+
+				a.setAttribute('href','/book/'+JSON.parse(request.response)[i]['_id']);
+
 				let li = document.createElement("li");
 				li.innerText = JSON.parse(request.response)[i]['bookname'];
 				a.appendChild(li);

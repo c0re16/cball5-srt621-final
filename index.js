@@ -2,13 +2,19 @@ const mongoose = require('mongoose');
 const BodyParser = require("body-parser");
 const uri = "mongodb+srv://cball5:4cNnNL3un3eqka@cluster0.qmhkn.mongodb.net/mywebsite?retryWrites=true&w=majority";
 
+const port = 3000;
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const port = 3000;// Optional: Configure cors to prevent unauthorised domain to access your resources
+// 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());// parse requests of content-type - application/x-www-form-urlencoded
+app.use(bodyParser.json());
+app.get("/home",  (req, res) => {
+  console.log(req.data);
+  res.render("home.html", );
+});
+
 
 app.use(express.static('serve_html/views'));
 app.use(express.static('serve_html/public/images'));
@@ -16,7 +22,9 @@ app.use(express.static('serve_html/public/css'));
 app.set('views',__dirname+'/serve_html/views')
 
 console.log('Attempting to load database.');
-mongoose.connect(uri,   // refer to the config/dev/db.js file
+
+mongoose.connect(uri, 
+
 { 
     useNewUrlParser: true
 
@@ -25,14 +33,12 @@ mongoose.connect(uri,   // refer to the config/dev/db.js file
 );
 console.log('Attempting to load routes.');
 
-
-
-//app.use('/', (req, res) => res.send('Hello World'));// Any url that doesn't match will return as a 404
-
 app.use('/', require('./serve_html/routes'));
 app.use(function(req, res, next) {
 
     res.status(404).sendfile('serve_html/views/notfound.html');
 
 });
-const server = app.listen(port, () => console.log('Server is up and running at port: ' + port));
+
+const server = app.listen(process.env.PORT || 5000, () => console.log('Server is up and running at port: ' + port));
+
